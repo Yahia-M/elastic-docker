@@ -3,4 +3,4 @@ tasks:
   - name: Install netcat & net-tools
     command: sudo apt-get install -y netcat net-tools
   - init: docker-compose pull
-    command: docker-compose up
+    command: docker-compose up -d --build
