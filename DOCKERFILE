@@ -1,0 +1,20 @@
+# Install dependencies
+RUN apt-get update && \
+    apt-get install -y openjdk-17-jdk nmap netcat && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Logstash
+RUN wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+RUN echo "deb https://artifacts.elastic.co/packages/oss-7.x/apt stable main" | tee -a /etc/apt/sources.list.d/elastic-7.x.list
+RUN apt-get update && \
+    apt-get install -y logstash-oss && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy the Logstash configuration file to the container
+COPY logstash.conf /etc/logstash/conf.d/logstash.conf
+
+# Expose the Logstash port
+EXPOSE 5000
+
+# Start Logstash when the container starts
+CMD ["/usr/share/logstash/bin/logstash", "-f", "/etc/logstash/conf.d/logstash.conf"]

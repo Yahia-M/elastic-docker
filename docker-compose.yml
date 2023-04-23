@@ -26,7 +26,7 @@ services:
     depends_on:
       - Elasticsearch
     ports:
-    - '9600:9600'
+    - '5000:5000'
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"    
     networks:
@@ -44,6 +44,9 @@ services:
       - Elasticsearch  
     networks:
       - elk
+  netcat:
+    image: alpine
+    entrypoint: nc -l 7777
 volumes:
   elastic_data: {}
 
