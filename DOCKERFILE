@@ -14,7 +14,7 @@ RUN apt-get update && \
 COPY logstash.conf /etc/logstash/conf.d/logstash.conf
 
 # Expose the Logstash port
-EXPOSE 5000
+EXPOSE 9600
 
 # Start Logstash when the container starts
 CMD ["/usr/share/logstash/bin/logstash", "-f", "/etc/logstash/conf.d/logstash.conf"]
